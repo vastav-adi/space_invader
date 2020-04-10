@@ -1,11 +1,14 @@
 import pygame
 import random
+import math
 
 # initializing pygame
 pygame.init()
 
 # creating screen
 screen = pygame.display.set_mode((800,600))
+
+score = 0
 
 # title and Icon
 icon = pygame.image.load("logos/logo.png")
@@ -24,7 +27,7 @@ playerX_change = 0
 
 # enemy
 enemyImg = pygame.image.load("user_image/corona.png")
-enmX = random.randint(20,750)
+enmX = random.randint(20,735)
 enmY = random.randint(50,150) 
 enmX_change = 3
 enmY_change = 64
@@ -50,6 +53,15 @@ def fire_bullet(x,y):
 	global bullet_state
 	bullet_state = "fire"
 	screen.blit(bulletImg,(x+25,y+10))
+
+
+
+
+# collision
+def isCollision(enmX,enmY,bultX,bultY):
+	dist = math.sqrt(math.pow(enmX-bultX,2)+math.pow(enmY-bultY,2))
+	if(dist<27):
+		return True
 
 
 
@@ -111,7 +123,23 @@ while running:
 		bultY = bultY + bultY_change 
 
 
-	
+
+
+	# check for collision // collision mechanics
+	collision = isCollision(enmX,enmY,bultX,bultY)
+	if collision:
+		# 1. reset bullet
+		bultY = 480
+		bullet_state = "ready"
+
+		# 2. set score
+		score += 1
+		print(score)
+		
+		# 3. respawn corona
+		enmX = random.randint(20,735)
+		enmY = random.randint(50,150) 
+
 
 	enemy(enmX,enmY)	
 	player(playerX,playerY)
