@@ -49,6 +49,12 @@ while running:
 
 	# calls the function to draw the player over the screen
 	playerX += playerX_change
+
+	#login for boundary
+	if playerX <= -10:
+		playerX = -10
+	if playerX >=746:
+		playerX = 746
 	player(playerX,playerY)
 	pygame.display.update()
 
