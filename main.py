@@ -70,8 +70,9 @@ while running:
 				playerX_change = 5
 
 			if event.key == pygame.K_SPACE:
-				fire_bullet(playerX,bultY)
-
+				if bullet_state is "ready":
+					bultX = playerX
+					fire_bullet(bultX,bultY)
 
 		# this is to stop the user when we stop pressing		
 		if event.type == pygame.KEYUP:
@@ -101,9 +102,15 @@ while running:
 
 
 	# bullet movement
+	if bultY <= 0:
+		bultY = 480
+		bullet_state = "ready"
+
 	if bullet_state is "fire":
-		fire_bullet(playerX,bultY)
+		fire_bullet(bultX,bultY)
 		bultY = bultY + bultY_change 
+
+
 	
 
 	enemy(enmX,enmY)	
