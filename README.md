@@ -2,7 +2,7 @@
 A simple space_invader game made using pygame.
 
 	Requirements:
-	>	python 3.x
+	> python 3.x
 	> pygame
 	
 	How to run this game:
